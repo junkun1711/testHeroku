@@ -1,0 +1,33 @@
+<!doctype html>
+<html th:fragment="layout (template, menu)">
+<head>
+    <title>Web For Chat</title>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-bottom navbar-inverse" style="min-height: 0;">
+        <div class="container" style="margin: 0; padding: 0; width: 100%;">
+            <ul class="nav navbar-nav" style="margin: 0; padding: 0; width: 100%;">
+                <li th:class="${active_home}" style="width: 25%; display: inline-block;">
+                    <a href="/wfc/home"><span class="glyphicon glyphicon-home"></span> &nbsp;&nbsp;Home</a>
+                </li>
+                <li th:class="${active_cart}" style="width: 25%; display: inline-block;">
+                    <a href="/wfc/cart"><span class="glyphicon glyphicon-shopping-cart"></span> &nbsp;&nbsp;Cart</a>
+                </li>
+                <li th:class="${active_order}" style="width: 25%; display: inline-block;">
+                    <a href="/wfc/order"><span class="glyphicon glyphicon-list-alt"></span> &nbsp;&nbsp;Order</a>
+                </li>
+                <li th:class="${active_user}" style="width: 25%; display: inline-block;">
+                    <a href="/wfc/user"><span class="glyphicon glyphicon-user"></span> &nbsp;&nbsp;Me</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div th:replace="${template}"/>
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
