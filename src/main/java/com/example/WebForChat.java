@@ -15,7 +15,7 @@ public class WebForChat {
 	
 	public String home(Map<String, Object> model, Connection connection) throws SQLException {
 		Statement stmt = connection.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT id, name, description, imgPath, price FROM Product");
+		ResultSet rs = stmt.executeQuery("SELECT id, name, description, \"imgPath\", price FROM \"Product\"");
 
 		ArrayList<Product> output = new ArrayList<Product>();
 		while (rs.next()) {
