@@ -98,7 +98,7 @@ public class Main {
 		try {
 			Method m = WebForChat.class.getDeclaredMethod(rootPath, Map.class);
 			model.put("active_" + rootPath, "active");
-			return (String) m.invoke(webForChat, model);
+			return (String) m.invoke(webForChat, model, dataSource.getConnection());
 		} catch (Exception e) {
 			model.put("message", e.getMessage());
 			return "webforchat/error";
@@ -111,7 +111,7 @@ public class Main {
 			String methodName = rootPath + subPath.toUpperCase().substring(0, 1) + subPath.substring(1);
 			Method m = WebForChat.class.getDeclaredMethod(methodName, Map.class, HttpServletRequest.class);
 			model.put("active_" + rootPath, "active");
-			return (String) m.invoke(webForChat, model, request);
+			return (String) m.invoke(webForChat, model, dataSource.getConnection(), request);
 		} catch (Exception e) {
 			model.put("message", e.getMessage());
 			return "webforchat/error";
