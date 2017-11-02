@@ -3,7 +3,21 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{webforchat/fragments/layout :: layout (~{::body},'error')}">
 
   <body>
-    test home
+  	
+  	
+    <div class="container">
+	  <h1>Database Output</h1>
+	  
+	  <div th:each="prod : ${records}">
+	  	<img th:src="${prod.imgPath}" style="width: 303px;height: 171px;" />
+	  	<span th:text="${prod.name}"></span>
+	  	<span th:text="${prod.description}">No Description</span>
+	  	<span th:text="${prod.price}"></span>
+	  	<div>
+	  		<input type="button" value="buy" />
+	  	</div>
+	  </div>
+	</div>
   </body>
 
 </html>
