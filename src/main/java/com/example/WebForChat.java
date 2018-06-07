@@ -8,12 +8,20 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.example.model.Product;
 
+@Component
 public class WebForChat {
+	@Autowired
+	private DataSource dataSource;
 	
-	public String home(Map<String, Object> model, Connection connection) throws SQLException {
+	public String home(Map<String, Object> model) throws SQLException {
+		Connection connection = dataSource.getConnection();
 		Statement stmt = connection.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT id, name, description, \"imgPath\", price FROM \"Product\"");
 
@@ -34,28 +42,28 @@ public class WebForChat {
 		return "webforchat/home";
 	}
 	
-	public String homeProduct(Map<String, Object> model, Connection connection, HttpServletRequest request) {
+	public String homeProduct(Map<String, Object> model, HttpServletRequest request) {
 		model.put("productId", request.getParameter("productId"));
 		
 		return "webforchat/productDetail";
 	}
 	
-	public String cart(Map<String, Object> model, Connection connection) {
+	public String cart(Map<String, Object> model) {
 		
 		return "webforchat/cart";
 	}
 	
-	public String order(Map<String, Object> model, Connection connection) {
+	public String order(Map<String, Object> model) {
 		
 		return "webforchat/order";
 	}
 	
-	public String user(Map<String, Object> model, Connection connection) {
+	public String user(Map<String, Object> model) {
 		
 		return "webforchat/user";
 	}
 	
-	public String manager(Map<String, Object> model, Connection connection) {
+	public String manager(Map<String, Object> model) {
 		
 		return "webforchat/manager";
 	}

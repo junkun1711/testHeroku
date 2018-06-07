@@ -24,6 +24,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -96,9 +97,9 @@ public class Main {
 	@RequestMapping("/wfc/{rootPath}")
 	String wfcRootRoute(@PathVariable String rootPath, Map<String, Object> model) {
 		try {
-			Method m = WebForChat.class.getDeclaredMethod(rootPath, Map.class, Connection.class);
+			Method m = WebForChat.class.getDeclaredMethod(rootPath, Map.class);
 			model.put("active_" + rootPath, "active");
-			return (String) m.invoke(webForChat, model, dataSource.getConnection());
+			return (String) m.invoke(webForChat, model);
 		} catch (Exception e) {
 			model.put("message", e.getMessage());
 			return "webforchat/error";
@@ -109,17 +110,12 @@ public class Main {
 	String wfcSubRoute(@PathVariable String rootPath, @PathVariable String subPath, Map<String, Object> model, HttpServletRequest request) {
 		try {
 			String methodName = rootPath + subPath.toUpperCase().substring(0, 1) + subPath.substring(1);
-			Method m = WebForChat.class.getDeclaredMethod(methodName, Map.class, Connection.class, HttpServletRequest.class);
+			Method m = WebForChat.class.getDeclaredMethod(methodName, Map.class, HttpServletRequest.class);
 			model.put("active_" + rootPath, "active");
-			return (String) m.invoke(webForChat, model, dataSource.getConnection(), request);
+			return (String) m.invoke(webForChat, model, request);
 		} catch (Exception e) {
 			model.put("message", e.getMessage());
 			return "webforchat/error";
 		}
-	}
-
-	@Bean
-	public WebForChat webForChat() {
-		return new WebForChat();
 	}
 }
